@@ -1,7 +1,7 @@
 package main
 
 import (
-	"GameLib/server"
+	"GameLib/internal/handler"
 	"github.com/spf13/viper"
 	"log"
 )
@@ -11,7 +11,10 @@ func main() {
 		log.Fatalf("[Main] Error initialize configs: %s", err.Error())
 	}
 
-	server.StartServer()
+	srv := handler.NewServer()
+	if err := srv.Start(viper.GetString("port")); err != nil {
+		log.Fatalf("[Main] Server start error: %s", err.Error())
+	}
 }
 
 func initConfig() error {

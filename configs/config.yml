@@ -1,8 +1,12 @@
 port: "8080"
 
 db:
-    host: "db"
-    port: "5432"
+#    Docker-config
+#    host: "db"
+#    port: "5432"
+
+    host: "localhost"
+    port: "5400"
     username: "admin"
     password: "admin"
     dbname: "postgres"

@@ -1,13 +1,9 @@
 version: '3.9'
 services:
-  gamelib_db:
+  db:
     image: "postgres:14.5-alpine"
-    networks:
-      database_net:
-        aliases:
-          - database_host
     ports:
-      - "5432"
+      - "5400:5432"
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=admin
@@ -20,24 +16,19 @@ services:
 
   migrate:
     image: migrate/migrate
-    networks:
-      - database_net
     volumes:
       - ./db/migrations:/migrations
-    command: ["-path", "/migrations", "-database", "postgres://admin:admin@database_host:5432/postgres?sslmode=disable", "up"]
+    command: ["-path", "/migrations", "-database", "postgres://admin:admin@db:5432/postgres?sslmode=disable", "up"]
     restart: "on-failure"
     depends_on:
-      -  gamelib_db
+      - db
     links:
-      -  gamelib_db
+      - db
 
-  gamelib_app:
+  app:
     build: ./
     command: ./app
     ports:
       - "8080:8080"
     depends_on:
-      - gamelib_db
-
-networks:
-  database_net:
+      - db
