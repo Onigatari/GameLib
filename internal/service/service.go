@@ -8,6 +8,10 @@ import (
 
 type GameLibOperations interface {
 	GetAllList(ctx *gin.Context) ([]models.Game, error)
+	CheckExist(game string, ctx *gin.Context) (bool, error)
+	AddGameRequest(game string, ctx *gin.Context) error
+	DeleteGameRequest(game string, ctx *gin.Context) error
+	UpdateGameDoneRequest(game string, ctx *gin.Context) error
 }
 
 type GameLibService struct {

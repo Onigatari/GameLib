@@ -62,22 +62,13 @@ func (s *Server) Shutdown(ctx context.Context) error {
 func (h *Handler) configureRoutes() *gin.Engine {
 	router := gin.New()
 
-	router.LoadHTMLGlob("templates/*")
 	router.Static("/assets", "./assets")
+	router.LoadHTMLGlob("templates/*")
 
 	router.GET("/", h.mainPage)
-
-	//accountChanges := router.Group("/api/")
-	//{
-	//	accountChanges.GET("/balance/:id", h.balance)
-	//	accountChanges.POST("/deposit", h.deposit)
-	//	accountChanges.POST("/withdrawal", h.withdrawal)
-	//	accountChanges.POST("/transfer", h.transfer)
-	//
-	//	accountChanges.POST("/reserveService", h.reserveService)
-	//	accountChanges.POST("/approveService", h.approveOrder)
-	//	accountChanges.POST("/failedService", h.failedService)
-	//}
+	router.POST("/add", h.addGameRequest)
+	router.POST("/delete", h.deleteGameRequest)
+	router.POST("/updateDone", h.updateGameDoneRequest)
 
 	return router
 }

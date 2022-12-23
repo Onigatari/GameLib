@@ -8,6 +8,10 @@ import (
 
 type GameLibOperations interface {
 	GetAllList(ctx *gin.Context) ([]models.Game, error)
+	CheckExist(game string, ctx *gin.Context) (bool, error)
+	AddGameRequest(game string, ctx *gin.Context) error
+	DeleteGameRequest(game string, ctx *gin.Context) error
+	UpdateGameDoneRequest(game string, ctx *gin.Context) error
 }
 
 type AppRepository struct {
@@ -21,7 +25,7 @@ func NewRepository(db *sqlx.DB) *AppRepository {
 }
 
 func (r *RequestPostgres) GetAllList(ctx *gin.Context) ([]models.Game, error) {
-	rows, err := r.db.Query("SELECT name, done FROM games ORDER BY done, name")
+	rows, err := r.db.Query("SELECT name, done FROM games ORDER BY done, LOWER(name)")
 	if err != nil {
 		return []models.Game{}, err
 	}
@@ -41,4 +45,37 @@ func (r *RequestPostgres) GetAllList(ctx *gin.Context) ([]models.Game, error) {
 		return gameList, err
 	}
 	return gameList, nil
+}
+
+func (r *RequestPostgres) CheckExist(game string, ctx *gin.Context) (bool, error) {
+	var request bool
+	if err := r.db.QueryRow("SELECT EXISTS(SELECT name FROM games WHERE LOWER(name) = LOWER($1) LIMIT 1)", game).Scan(&request); err != nil {
+		return false, err
+	}
+
+	if request {
+		return false, nil
+	}
+	return true, nil
+}
+
+func (r *RequestPostgres) AddGameRequest(game string, ctx *gin.Context) error {
+	if _, err := r.db.Exec("INSERT INTO games (name, done) VALUES ($1, false)", game); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RequestPostgres) DeleteGameRequest(game string, ctx *gin.Context) error {
+	if _, err := r.db.Exec("DELETE FROM games WHERE LOWER(name) = LOWER($1)", game); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RequestPostgres) UpdateGameDoneRequest(game string, ctx *gin.Context) error {
+	if _, err := r.db.Exec("UPDATE games SET DONE = NOT DONE WHERE name = $1", game); err != nil {
+		return err
+	}
+	return nil
 }
