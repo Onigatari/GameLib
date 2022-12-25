@@ -29,6 +29,7 @@ func (h *Handler) addGameRequest(c *gin.Context) {
 			log.Fatalf("request invalid: %s", err)
 		}
 	}
+
 	c.Redirect(http.StatusFound, "/")
 }
 
