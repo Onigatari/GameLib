@@ -13,7 +13,8 @@ func (h *Handler) mainPage(c *gin.Context) {
 	}
 
 	c.HTML(http.StatusOK, "index.html", gin.H{
-		"gameList": base,
+		"gameList":   base,
+		"randomGame": "",
 	})
 }
 
@@ -47,4 +48,21 @@ func (h *Handler) updateGameDoneRequest(c *gin.Context) {
 		log.Fatalf("request invalid: %s", err)
 	}
 	c.Redirect(http.StatusFound, "/")
+}
+
+func (h *Handler) getRandomGames(c *gin.Context) {
+	base, errAll := h.services.GetAllList(c)
+	if errAll != nil {
+		log.Fatalf("request invalid: %s", errAll)
+	}
+
+	randomGame, errRand := h.services.GetRandomGames(c)
+	if errRand != nil {
+		log.Fatalf("request invalid: %s", errRand)
+	}
+
+	c.HTML(http.StatusOK, "index.html", gin.H{
+		"gameList":   base,
+		"randomGame": randomGame,
+	})
 }

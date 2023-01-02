@@ -13,6 +13,13 @@
 
 <body class="bg-dark">
 
+<nav class="navbar navbar-ligh">
+    <a class="navbar-brand" href="/">
+        <img src="https://img.icons8.com/fluency/48/null/xbox-controller--v2.png"/>
+        <span class="fs-4" style="color: white">GameLib</span>
+    </a>
+</nav>
+
 <div class="btn-up btn-up_hide"></div>
 
 <form method="POST" action="/add">
@@ -25,7 +32,19 @@
     </div>
 </form>
 
-<table id="gamesList" class="table table-dark table-striped table-hover table-sm">
+<form method="GET" action="/random">
+    <div class="d-grid gap-2 mb-2">
+        <button class="btn btn-primary" type="submit" id="button-random">Random</button>
+    </div>
+</form>
+
+{{ if .randomGame }}
+    <div class="alert alert-primary" style="height: 4.5rem;" role="alert">
+        <p class="text-center">{{ .randomGame }}</p>
+    </div>
+{{ end }}
+
+<table id="gamesList" class="table table-dark table-striped table-hover table-sm mb-5" data-mdb-fixed-header="true">
     <thead class="table-full-dark">
     <tr>
         <th scope="col">#</th>

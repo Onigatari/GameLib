@@ -32,3 +32,7 @@ func (s *GameLibOperationsService) DeleteGameRequest(game string, ctx *gin.Conte
 func (s *GameLibOperationsService) UpdateGameDoneRequest(game string, ctx *gin.Context) error {
 	return s.repo.UpdateGameDoneRequest(game, ctx)
 }
+
+func (s *GameLibOperationsService) GetRandomGames(ctx *gin.Context) (string, error) {
+	return s.repo.GetRandomGames(ctx)
+}

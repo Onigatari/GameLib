@@ -66,6 +66,7 @@ func (h *Handler) configureRoutes() *gin.Engine {
 	router.LoadHTMLGlob("templates/*")
 
 	router.GET("/", h.mainPage)
+	router.GET("/random", h.getRandomGames)
 	router.POST("/add", h.addGameRequest)
 	router.POST("/delete", h.deleteGameRequest)
 	router.POST("/updateDone", h.updateGameDoneRequest)

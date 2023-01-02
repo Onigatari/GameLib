@@ -12,6 +12,7 @@ type GameLibOperations interface {
 	AddGameRequest(game string, ctx *gin.Context) error
 	DeleteGameRequest(game string, ctx *gin.Context) error
 	UpdateGameDoneRequest(game string, ctx *gin.Context) error
+	GetRandomGames(ctx *gin.Context) (string, error)
 }
 
 type AppRepository struct {
@@ -78,4 +79,12 @@ func (r *RequestPostgres) UpdateGameDoneRequest(game string, ctx *gin.Context) e
 		return err
 	}
 	return nil
+}
+
+func (r *RequestPostgres) GetRandomGames(ctx *gin.Context) (string, error) {
+	var result string
+	if err := r.db.QueryRow("SELECT name FROM games WHERE done != TRUE ORDER BY random() LIMIT 1").Scan(&result); err != nil {
+		return "", err
+	}
+	return result, nil
 }
