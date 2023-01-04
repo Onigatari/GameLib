@@ -2,7 +2,7 @@
 
 body {
     font-family: "Inter", sans-serif;
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     height: 100vh;
     overflow-y: auto;
     margin: 0 1.5em;
@@ -37,6 +37,39 @@ html *::-webkit-scrollbar-thumb {
 
 body {
     min-height: 2000px;
+}
+
+.pagination {
+    --bs-pagination-color: white;
+    --bs-pagination-active-color: #0d6efd;
+    --bs-pagination-bg: #0d6efd;
+    --bs-pagination-border-color: #0d6efd;
+    --bs-pagination-disabled-color: white;
+    --bs-pagination-disabled-bg: #0d6efd;
+    --bs-pagination-active-bg: white;
+    --bs-pagination-active-border-color: white;
+    --bs-pagination-disabled-border-color: #0d6efd;
+}
+
+.dataTables_filter {
+    color: white;
+}
+
+.dataTables_length {
+    color: white;
+}
+
+.table {
+    color: white;
+}
+
+.f32 .flag {
+    vertical-align: middle;
+    margin: -8px 0;
+}
+
+progress {
+    width: 100%;
 }
 
 .btn-up {
