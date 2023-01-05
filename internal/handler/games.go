@@ -51,18 +51,12 @@ func (h *Handler) updateGameDoneRequest(c *gin.Context) {
 }
 
 func (h *Handler) getRandomGames(c *gin.Context) {
-	base, errAll := h.services.GetAllList(c)
-	if errAll != nil {
-		log.Fatalf("request invalid: %s", errAll)
-	}
-
 	randomGame, errRand := h.services.GetRandomGames(c)
 	if errRand != nil {
 		log.Fatalf("request invalid: %s", errRand)
 	}
 
-	c.HTML(http.StatusOK, "index.html", gin.H{
-		"gameList":   base,
-		"randomGame": randomGame,
+	c.JSON(http.StatusOK, gin.H{
+		"name": randomGame,
 	})
 }
