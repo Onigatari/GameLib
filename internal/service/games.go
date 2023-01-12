@@ -36,3 +36,7 @@ func (s *GameLibOperationsService) UpdateGameDoneRequest(game string, ctx *gin.C
 func (s *GameLibOperationsService) GetRandomGames(ctx *gin.Context) (string, error) {
 	return s.repo.GetRandomGames(ctx)
 }
+
+func (s *GameLibOperationsService) GetRandomListGames(ctx *gin.Context) ([]string, error) {
+	return s.repo.GetRandomListGames(ctx)
+}

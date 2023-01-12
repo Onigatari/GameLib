@@ -13,6 +13,7 @@ type GameLibOperations interface {
 	DeleteGameRequest(game string, ctx *gin.Context) error
 	UpdateGameDoneRequest(game string, ctx *gin.Context) error
 	GetRandomGames(ctx *gin.Context) (string, error)
+	GetRandomListGames(ctx *gin.Context) ([]string, error)
 }
 
 type GameLibService struct {

@@ -17,7 +17,7 @@ $(document).ready(function () {
         info: false,
         lengthMenu: [
             [10, 50, 100, -1],
-            [10, 50, 100, 'All'],
+            [10, 50, 100, 'Все'],
         ],
     });
 });

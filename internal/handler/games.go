@@ -60,3 +60,14 @@ func (h *Handler) getRandomGames(c *gin.Context) {
 		"name": randomGame,
 	})
 }
+
+func (h *Handler) getRandomListGames(c *gin.Context) {
+	randomGameList, errRand := h.services.GetRandomListGames(c)
+	if errRand != nil {
+		log.Fatalf("request invalid: %s", errRand)
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"gameList": randomGameList,
+	})
+}

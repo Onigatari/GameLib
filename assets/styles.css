@@ -3,10 +3,11 @@
 body {
     font-family: "Inter", sans-serif;
     font-size: 1.2rem;
-    height: 100vh;
+    /*height: 100vh;*/
     overflow-y: auto;
     margin: 0 1.5em;
     padding: 2rem;
+    color:white;
 }
 
 
@@ -33,10 +34,6 @@ html *::-webkit-scrollbar-thumb {
     background-color: #212529;
     border-radius: 5px;
     border: 3px solid #161616;
-}
-
-body {
-    min-height: 2000px;
 }
 
 .pagination {

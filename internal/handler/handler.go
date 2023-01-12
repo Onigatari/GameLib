@@ -70,6 +70,7 @@ func (h *Handler) configureRoutes() *gin.Engine {
 	accountChanges := router.Group("/api/")
 	{
 		accountChanges.GET("/random", h.getRandomGames)
+		accountChanges.GET("/randomList", h.getRandomListGames)
 		accountChanges.POST("/add", h.addGameRequest)
 		accountChanges.POST("/delete", h.deleteGameRequest)
 		accountChanges.POST("/updateDone", h.updateGameDoneRequest)
